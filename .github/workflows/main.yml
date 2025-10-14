@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 0 * * 0' 
+    - cron: '0 0 * * 0'  # Executar toda meia-noite aos sábados
 
 jobs:
   hello-world:
@@ -18,7 +18,7 @@ jobs:
         run: echo "Data e Hora do Push: $(date)"
 
       - name: Exibir usuário do push
-        run: echo "Usuário do Push: $GITHUB_ACTOR"  # Corrigido para o uso da variável corretamente
+        run: echo "Usuário do Push: ${{ github.actor }}"
 
       - name: Calcular 2 + 2 no terminal
         run: echo "2 + 2 = $((2 + 2))"
@@ -51,7 +51,7 @@ jobs:
       - name: Action com múltiplos steps - Data, Usuário, e Arquivos HTML/CSS/JS
         run: |
           echo "Data e Hora do Push: $(date)"
-          echo "Usuário do Push: $GITHUB_ACTOR"
+          echo "Usuário do Push: ${{ github.actor }}"
           html_files=$(ls *.html | wc -l)
           css_files=$(ls *.css | wc -l)
           js_files=$(ls *.js | wc -l)
