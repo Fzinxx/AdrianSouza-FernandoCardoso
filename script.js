@@ -1,0 +1,1 @@
+document.getElementById("date-time").innerText = new Date().toLocaleString();
