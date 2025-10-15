@@ -1,0 +1,26 @@
+name: Night-only Scheduler (executa 00:00)
+on:
+  schedule:
+    - cron: '*/30 * * * *'  
+  workflow_dispatch:
+
+jobs:
+  night-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verificar horario (America/Sao_Paulo)
+        run: |
+          HOUR=$(TZ="America/Sao_Paulo" date +%H)
+          echo "Hora em São Paulo: $HOUR"
+          # Definindo noite como 18..23 e 0..5
+          if [ "$HOUR" -ge 18 ] || [ "$HOUR" -le 5 ]; then
+            echo "É noite — prosseguindo com job."
+          else
+            echo "Ainda não são 00:00."
+            exit 0
+          fi
+
+      - name: Tarefa noturna 
+        run: |
+          echo "Executando tarefa noturna: registro de horário"
+          TZ="America/Sao_Paulo" date +"%Y-%m-%d %H:%M:%S %Z"
